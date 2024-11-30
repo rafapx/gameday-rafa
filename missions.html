@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameDay RAFA - Seleção de Missão</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #0ff;
+            font-family: 'Courier New', monospace;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .mission-card {
+            border: 1px solid #0ff;
+            margin: 20px 0;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(0,255,255,0.1);
+        }
+
+        .mission-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px #0ff;
+        }
+
+        .mission-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #ff0080;
+        }
+
+        .mission-desc {
+            margin-bottom: 15px;
+        }
+
+        .mission-stats {
+            font-size: 0.9em;
+            color: #0ff;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1) }
+            50% { transform: scale(1.05) }
+            100% { transform: scale(1) }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SISTEMA R.A.F.A</h1>
+            <p>SELECIONE SUA MISSÃO, AGENTE</p>
+        </div>
+
+        <div class="mission-card" onclick="startGame('treasure')">
+            <div class="mission-title">🎯 PROTOCOLO CAÇA AO TESOURO</div>
+            <div class="mission-desc">Desbloqueie fases, descubra senhas e complete desafios em equipe.</div>
+            <div class="mission-stats">
+                Nível de Risco: EXTREMO<br>
+                Taxa de Sucesso: 12%<br>
+                Requisito: Foco Máximo
+            </div>
+        </div>
+
+        <div class="mission-card" onclick="startGame('imageaction')">
+            <div class="mission-title">🎭 SIMULADOR IMAGEM & AÇÃO</div>
+            <div class="mission-desc">Teste suas habilidades de comunicação não-verbal sob pressão.</div>
+            <div class="mission-stats">
+                Link Neural: NECESSÁRIO<br>
+                Sinc. Mental: ATIVADA<br>
+                Aviso: Realidade Alterada
+            </div>
+        </div>
+
+        <div class="mission-card" onclick="startGame('detective')">
+            <div class="mission-title">🔍 OPERAÇÃO DETETIVE</div>
+            <div class="mission-desc">Desvende mistérios, analise pistas e resolva casos complexos.</div>
+            <div class="mission-stats">
+                Dificuldade: ALTA<br>
+                Tempo Médio: 45 MIN<br>
+                Habilidade: Dedução
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startGame(gameType) {
+            switch(gameType) {
+                case 'treasure':
+                    window.location.href = 'treasure-hunt.html';
+                    break;
+                case 'imageaction':
+                    window.location.href = 'image-action.html';
+                    break;
+                case 'detective':
+                    window.location.href = 'detective.html';
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

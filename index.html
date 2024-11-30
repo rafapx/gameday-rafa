@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameDay RAFA - Aventura Interativa</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #0ff;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .glitch-text {
+            font-size: 2.5em;
+            text-shadow: 2px 2px #ff0080;
+            animation: glitch 1s infinite;
+        }
+
+        .login-form {
+            margin-top: 2em;
+            display: none;
+        }
+
+        .input-field {
+            background: rgba(0,255,255,0.1);
+            border: 1px solid #0ff;
+            color: #0ff;
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+        }
+
+        .start-btn {
+            background: #0ff;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .start-btn:hover {
+            background: #ff0080;
+            transform: scale(1.1);
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="intro-text" class="glitch-text">
+            ⚠️ SISTEMA R.A.F.A ⚠️<br>
+            INICIANDO CONEXÃO...
+        </div>
+        <div id="login-form" class="login-form">
+            <input type="text" class="input-field" placeholder="DIGITE SEU CODINOME" required>
+            <input type="text" class="input-field" placeholder="CÓDIGO DA EQUIPE" required>
+            <button class="start-btn" onclick="startMission()">INICIAR MISSÃO</button>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('intro-text').innerHTML = ">> CONEXÃO ESTABELECIDA <<";
+            setTimeout(() => {
+                document.getElementById('login-form').style.display = 'block';
+            }, 1500);
+        }, 3000);
+
+        function startMission() {
+            // Aqui iremos adicionar a navegação para a próxima página
+            window.location.href = 'missions.html';
+        }
+    </script>
+</body>
+</html>

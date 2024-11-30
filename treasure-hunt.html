@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameDay RAFA - Caça ao Tesouro</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #0ff;
+            font-family: 'Courier New', monospace;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .phase {
+            border: 1px solid #0ff;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(0,255,255,0.1);
+        }
+
+        .phase.locked {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .phase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .phase-title {
+            font-size: 1.5em;
+            color: #ff0080;
+        }
+
+        .timer {
+            font-size: 1.2em;
+            color: #ff0080;
+        }
+
+        .challenge {
+            margin: 10px 0;
+            padding: 10px;
+            border-left: 2px solid #0ff;
+        }
+
+        .password-input {
+            background: rgba(0,255,255,0.1);
+            border: 1px solid #0ff;
+            color: #0ff;
+            padding: 10px;
+            width: 200px;
+            margin-top: 10px;
+        }
+
+        .submit-btn {
+            background: #0ff;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #ff0080;
+        }
+
+        .score {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,255,255,0.2);
+            padding: 10px;
+            border: 1px solid #0ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="score">
+        PONTUAÇÃO: <span id="score">0</span>
+    </div>
+
+    <div class="container">
+        <div class="phase" id="phase1">
+            <div class="phase-header">
+                <div class="phase-title">FASE 1: "TUTORIAL LEVEL" (15 min)</div>
+                <div class="timer" id="timer1">15:00</div>
+            </div>
+            <div class="challenge">
+                1. Foto do time fazendo pose de personagem selecionado
+            </div>
+            <div class="challenge">
+                2. Selfie com expressão de 'game over' perto de animal
+            </div>
+            <div class="challenge">
+                3. Montem uma cena de 'loading' usando movimento
+            </div>
+            <div class="challenge">
+                4. Video de 10s: Time entrando em 'portal' imaginário
+            </div>
+            <div class="challenge">
+                5. Slow motion de 5s: Reação ao ver 'item raro'
+            </div>
+            <input type="text" class="password-input" placeholder="SENHA DA FASE">
+            <button class="submit-btn" onclick="submitPassword(1)">CONFIRMAR</button>
+        </div>
+
+        <div class="phase locked" id="phase2">
+            <div class="phase-header">
+                <div class="phase-title">FASE 2: "FARM CHALLENGES" (20 min)</div>
+                <div class="timer" id="timer2">20:00</div>
+            </div>
+            <div class="challenge">
+                1. Recriem cena de 'Mortal Kombat' com galinhas ao fundo
+            </div>
+            <div class="challenge">
+                2. Formem letras humanas: G.A.M.E
+            </div>
+            <div class="challenge">
+                3. Foto matriz: Imitem 3 animais diferentes simultaneamente
+            </div>
+            <div class="challenge">
+                4. Encontrem algo que pareça de outro planeta na fazenda
+            </div>
+            <div class="challenge">
+                5. Mini documentário cômico sobre um animal (15s)
+            </div>
+            <div class="challenge">
+                6. Time fazendo dancinha TikTok com animais ao fundo (10s)
+            </div>
+            <input type="text" class="password-input" placeholder="SENHA DA FASE">
+            <button class="submit-btn" onclick="submitPassword(2)">CONFIRMAR</button>
+        </div>
+
+        <div class="phase locked" id="phase3">
+            <div class="phase-header">
+                <div class="phase-title">FASE 3: "SIDE QUESTS" (15 min)</div>
+                <div class="timer" id="timer3">15:00</div>
+            </div>
+            <div class="challenge">
+                1. Montem torre humana segurando frutas/legumes
+            </div>
+            <div class="challenge">
+                2. Recriem meme famoso usando cenário da fazenda
+            </div>
+            <div class="challenge">
+                3. Foto onde todos parecem gigantes (perspectiva)
+            </div>
+            <div class="challenge">
+                4. Encontrem 5 coisas com mesma cor (não verde)
+            </div>
+            <div class="challenge">
+                5. Comercial maluco de produto da fazenda (20s)
+            </div>
+            <input type="text" class="password-input" placeholder="SENHA DA FASE">
+            <button class="submit-btn" onclick="submitPassword(3)">CONFIRMAR</button>
+        </div>
+
+        <div class="phase locked" id="phase4">
+            <div class="phase-header">
+                <div class="phase-title">FASE 4: "BOSS BATTLE" (25 min)</div>
+                <div class="timer" id="timer4">25:00</div>
+            </div>
+            <div class="challenge">
+                1. Recriem capa de jogo famoso
+            </div>
+            <div class="challenge">
+                2. Formem logo GameDay com objetos naturais
+            </div>
+            <div class="challenge">
+                3. Foto impossível: Todos pulando COM ALGO da fazenda
+            </div>
+            <div class="challenge">
+                4. Montem cenário de batalha final usando ambiente
+            </div>
+            <div class="challenge">
+                5. Mini filme de ação na fazenda (30s)
+            </div>
+            <div class="challenge">
+                6. Trailer épico do time (15s)
+            </div>
+            <input type="text" class="password-input" placeholder="SENHA DA FASE">
+            <button class="submit-btn" onclick="submitPassword(4)">CONFIRMAR</button>
+        </div>
+
+        <div class="phase locked" id="victory-screen" style="text-align: center; background: linear-gradient(45deg, #000, #1a1a1a); border: 2px solid #0ff; box-shadow: 0 0 20px #0ff;">
+            <div style="font-size: 2em; color: #ff0080; text-shadow: 0 0 10px #ff0080; margin: 20px 0;">
+                🏆 MISSÃO COMPLETA! 🏆
+            </div>
+            
+            <div style="font-size: 1.2em; color: #0ff; margin: 20px 0;">
+                PARABÉNS, BRAVOS AVENTUREIROS!
+            </div>
+
+            <div style="background: rgba(0,255,255,0.1); padding: 20px; margin: 20px 0; border-left: 4px solid #0ff;">
+                "Vocês não são apenas jogadores... São LENDAS! 
+                Enfrentaram desafios, superaram limites e conquistaram a FAZENDA RAFA com maestria!
+                Suas fotos e vídeos ficarão eternizados no hall da fama dos grandes desbravadores!"
+            </div>
+
+            <div class="final-score" style="font-size: 1.5em; margin: 20px 0;">
+                PONTUAÇÃO FINAL: <span id="final-score">0</span> pontos
+            </div>
+
+            <div style="color: #ff0080; margin: 20px 0;">
+                🌟 CONQUISTAS DESBLOQUEADAS 🌟
+            </div>
+            <div id="achievements" style="text-align: left; padding: 20px;">
+                • Mestre dos Desafios
+                • Rei/Rainha da Criatividade
+                • Desbravador(a) Supremo(a)
+                • Lenda da Fazenda RAFA
+            </div>
+
+            <div style="font-style: italic; color: #0ff; margin: 20px 0; font-size: 0.9em;">
+                "Que as histórias de suas aventuras sejam contadas de geração em geração,
+                e que a alegria deste dia permaneça eterna em seus corações!"
+            </div>
+
+            <div style="margin: 20px 0; font-size: 1.2em; color: #ff0080;">
+                🎮 GAME OVER... MAS A AVENTURA CONTINUA! 🎮
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        const passwords = {
+            1: "nolimite",
+            2: "jogos vorazes",
+            3: "fazendafeliz",
+            4: "alegriaeterna"
+        };
+
+        function submitPassword(phase) {
+            const input = document.querySelector(`#phase${phase} .password-input`);
+            if (input.value === passwords[phase]) {
+                score += 50;
+                document.getElementById('score').textContent = score;
+                document.getElementById('final-score').textContent = score;
+                
+                if (phase < 4) {
+                    document.getElementById(`phase${phase + 1}`).classList.remove('locked');
+                } else {
+                    document.getElementById('victory-screen').classList.remove('locked');
+                    // Efeito de confete ao completar o jogo
+                    createConfetti();
+                }
+                
+                alert("SENHA CORRETA! PRÓXIMA FASE DESBLOQUEADA!");
+            } else {
+                alert("SENHA INCORRETA. TENTE NOVAMENTE.");
+            }
+        }
+
+        // Função para criar efeito de confete
+        function createConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = ['#0ff', '#ff0080', '#ffff00'][Math.floor(Math.random() * 3)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+                confetti.style.opacity = '1';
+                confetti.style.transition = 'all 3s linear';
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.style.top = '100vh';
+                    confetti.style.opacity = '0';
+                }, 100);
+
+                setTimeout(() => {
+                    document.body.removeChild(confetti);
+                }, 3000);
+            }
+        }
+
+        // Timer functionality
+        function startTimer(phaseId, minutes) {
+            let time = minutes * 60;
+            const timerElement = document.getElementById(`timer${phaseId}`);
+            
+            const interval = setInterval(() => {
+                const mins = Math.floor(time / 60);
+                const secs = time % 60;
+                
+                timerElement.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+                
+                if (time === 0) {
+                    clearInterval(interval);
+                    alert(`TEMPO ESGOTADO NA FASE ${phaseId}!`);
+                }
+                
+                time--;
+            }, 1000);
+        }
+
+        // Start timer for Phase 1
+        startTimer(1, 15);
+        startTimer(2, 20);
+        startTimer(3, 15);
+        startTimer(4, 25);
+    </script>
+</body>
+</html>

@@ -197,7 +197,7 @@
 
         <div class="phase locked" id="victory-screen" style="text-align: center; background: linear-gradient(45deg, #000, #1a1a1a); border: 2px solid #0ff; box-shadow: 0 0 20px #0ff;">
             <div style="font-size: 2em; color: #ff0080; text-shadow: 0 0 10px #ff0080; margin: 20px 0;">
-                🏆 MISSÃO COMPLETA! 🏆
+                MISSÃO COMPLETA!
             </div>
             
             <div style="font-size: 1.2em; color: #0ff; margin: 20px 0;">
@@ -215,7 +215,7 @@
             </div>
 
             <div style="color: #ff0080; margin: 20px 0;">
-                🌟 CONQUISTAS DESBLOQUEADAS 🌟
+                CONQUISTAS DESBLOQUEADAS
             </div>
             <div id="achievements" style="text-align: left; padding: 20px;">
                 • Mestre dos Desafios
@@ -230,7 +230,7 @@
             </div>
 
             <div style="margin: 20px 0; font-size: 1.2em; color: #ff0080;">
-                🎮 GAME OVER... MAS A AVENTURA CONTINUA! 🎮
+                GAME OVER... MAS A AVENTURA CONTINUA!
             </div>
         </div>
     </div>
@@ -246,7 +246,11 @@
 
         function submitPassword(phase) {
             const input = document.querySelector(`#phase${phase} .password-input`);
-            if (input.value === passwords[phase]) {
+            // Remove espaços e converte para minúsculas
+            const userPassword = input.value.trim().toLowerCase();
+            const correctPassword = passwords[phase].trim().toLowerCase();
+            
+            if (userPassword === correctPassword) {
                 score += 50;
                 document.getElementById('score').textContent = score;
                 document.getElementById('final-score').textContent = score;
@@ -255,13 +259,12 @@
                     document.getElementById(`phase${phase + 1}`).classList.remove('locked');
                 } else {
                     document.getElementById('victory-screen').classList.remove('locked');
-                    // Efeito de confete ao completar o jogo
                     createConfetti();
                 }
                 
                 alert("SENHA CORRETA! PRÓXIMA FASE DESBLOQUEADA!");
             } else {
-                alert("SENHA INCORRETA. TENTE NOVAMENTE.");
+                alert("SENHA INCORRETA. TENTE NOVAMENTE.\nDica: Digite exatamente como mostrado, sem espaços extras.");
             }
         }
 
